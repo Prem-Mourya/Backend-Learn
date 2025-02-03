@@ -9,7 +9,7 @@ app.set("view engine", "ejs") // this is engine used to render html
 
 app.use(morgan("dev"));
 
-// middleware costume
+// costume middleware 
 app.use((req, res, next) => {
     console.log("this is middleware")
     const a = 2
@@ -17,7 +17,10 @@ app.use((req, res, next) => {
     console.log(a+b)
     return next()
 })
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
+    console.log("/ route middleware")
+    next();
+}, (req, res) => {
     res.render("index")
 })
 app.get('/about', (req, res) => {
